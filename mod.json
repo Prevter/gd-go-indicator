@@ -1,0 +1,26 @@
+{
+	"geode": "3.8.1",
+	"gd": {
+		"win": "2.206",
+		"android": "2.206",
+		"mac": "2.206",
+		"ios": "2.206"
+	},
+	"id": "prevter.go-indicator",
+	"name": "Go! Indicator",
+	"version": "v1.0.0",
+	"developer": "prevter",
+	"description": "Add custom markers to your progress bar",
+	"resources": {
+		"sprites": [ "res/*.png" ]
+	},
+	"dependencies": [{
+		"id": "cvolton.level-id-api",
+		"version": "v1.0.1",
+		"importance": "required"
+	},{
+		"id": "geode.node-ids",
+		"version": ">=1.15.0",
+		"importance": "required"
+	}]
+}
