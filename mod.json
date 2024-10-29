@@ -11,6 +11,7 @@
 	"version": "v1.0.0",
 	"developer": "prevter",
 	"description": "Add custom markers to your progress bar",
+	"tags": ["interface", "customization"],
 	"links": {
 		"source": "https://github.com/prevter/gd-go-indicator",
 		"community": "https://discord.gg/HaHn7RSJ4Q"
