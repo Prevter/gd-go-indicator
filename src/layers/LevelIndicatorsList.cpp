@@ -114,13 +114,13 @@ cocos2d::CCMenu* LevelIndicatorsList::createIndicatorCell(IndicatorData& data, i
     cell->addChildAtPosition(toggleButton, cocos2d::Anchor::BottomLeft, {135.f, 20.f});
 
     // label input
-    auto labelInput = geode::TextInput::create(250.f, "Go!", "chatFont.fnt");
+    auto labelInput = geode::TextInput::create(230.f, "Go!", "chatFont.fnt");
     labelInput->setFilter("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{};:'\",.<>/?\\|`~");
     labelInput->setCallback([this, index](std::string const& text) {
         m_indicators[index].label = unescapeNewlines(text);
     });
     labelInput->setString(escapeNewlines(data.label));
-    labelInput->setScale(0.5f);
+    labelInput->setScale(0.6f);
     labelInput->setID("label-input"_spr);
     cell->addChildAtPosition(labelInput, cocos2d::Anchor::BottomLeft, {215.f, 20.f});
 

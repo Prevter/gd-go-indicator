@@ -37,6 +37,7 @@ void GoIndicatorPlayLayer::recreateIndicators() {
 
 void GoIndicatorPlayLayer::setupHasCompleted() {
     PlayLayer::setupHasCompleted();
+    if (m_level->isPlatformer()) return;
     this->recreateIndicators();
 }
 
@@ -49,11 +50,15 @@ struct GoIndicatorPauseLayer final : geode::Modify<GoIndicatorPauseLayer, PauseL
 
     void customSetup() override {
         PauseLayer::customSetup();
+        auto pl = PlayLayer::get();
+        if (!pl || pl->m_level->isPlatformer()) return;
+
         auto menu = this->getChildByID("right-button-menu");
-        auto btn = CCMenuItemSpriteExtra::create(
-            cocos2d::CCSprite::createWithSpriteFrameName("GJ_audioOnBtn_001.png"),
-            this, menu_selector(GoIndicatorPauseLayer::onAddIndicator)
+        auto btnSprite = geode::CircleButtonSprite::createWithSprite("button-icon.png"_spr, 1.f,
+            geode::CircleBaseColor::Green, geode::CircleBaseSize::Tiny
         );
+        btnSprite->setScale(1.2f); // there is no CircleBaseSize for pause buttons :broken_heart:
+        auto btn = CCMenuItemSpriteExtra::create(btnSprite, this, menu_selector(GoIndicatorPauseLayer::onAddIndicator));
         btn->setID("indicators-list"_spr);
         menu->addChild(btn);
         menu->updateLayout();
