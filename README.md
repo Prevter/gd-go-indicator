@@ -1,23 +1,20 @@
-# Go!Indicator
-This is where she makes a mod.
+# Go! Indicators
 
 <img src="logo.png" width="150" alt="the mod's logo" />
 
-*Update logo.png to change your mod's icon (please)*
+This mod allows you to add custom indicators to your progress bar.
+You can set percentage, color and text for each indicator.
 
-## Getting started
-We recommend heading over to [the getting started section on our docs](https://docs.geode-sdk.org/getting-started/) for useful info on what to do next.
+Settings are stored separately for each level, so you can have different indicators for each one.
 
-## Build instructions
-For more info, see [our docs](https://docs.geode-sdk.org/getting-started/create-mod#build)
-```sh
-# Assuming you have the Geode CLI set up already
-geode build
-```
+You can use `\n` to add newlines in the text.
 
-# Resources
-* [Geode SDK Documentation](https://docs.geode-sdk.org/)
-* [Geode SDK Source Code](https://github.com/geode-sdk/geode/)
-* [Geode CLI](https://github.com/geode-sdk/cli)
-* [Bindings](https://github.com/geode-sdk/bindings/)
-* [Dev Tools](https://github.com/geode-sdk/DevTools)
+## Help
+If you have any questions, feel free to contact me on discord: `@prevter`,
+or create an issue on the [GitHub page](https://github.com/prevter/gd-go-indicator).
+
+## Credits
+Idea by 7hat3eird0ne (Inspired by JonathanGD streams)
+
+## License
+This mod is licensed under the MIT License.
