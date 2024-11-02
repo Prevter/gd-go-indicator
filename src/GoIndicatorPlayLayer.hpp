@@ -8,7 +8,7 @@ struct GoIndicatorPlayLayer final : geode::Modify<GoIndicatorPlayLayer, PlayLaye
         std::vector<IndicatorNode*> m_indicators;
     };
 
-    [[nodiscard]] IndicatorNode* addIndicator(IndicatorData const& data) const;
+    [[nodiscard]] IndicatorNode* addIndicator(IndicatorData const& data, float width) const;
     [[nodiscard]] std::string getLevelId() const;
 
     void recreateIndicators();

@@ -3,6 +3,7 @@
 #include "../structs/IndicatorData.hpp"
 #include "../nodes/ColorPicker.hpp"
 #include "../nodes/FloatSlider.hpp"
+#include "../nodes/FontPicker.hpp"
 
 std::string escapeNewlines(std::string const& text) {
     return geode::utils::string::replace(text, "\n", "\\n");
@@ -58,13 +59,32 @@ bool LevelIndicatorsList::setup(std::string const &id) {
     auto addIndicatorButton = geode::cocos::CCMenuItemExt::createSpriteExtra(ButtonSprite::create(
         "Add", 60.f, true, "bigFont.fnt", "GJ_button_01.png", 24.f, 0.5
         ), [this](auto) {
-        m_indicators.push_back(IndicatorData { 50.0, "Go!", { 255, 255, 255, 255 }, true });
+        m_indicators.push_back(IndicatorData { 50.0, "Go!", "bigFont.fnt", { 255, 255, 255, 255 }, true });
         this->refreshList();
     });
     sidebarMenu->addChild(addIndicatorButton);
+
+    auto maxWidthLabel = cocos2d::CCLabelBMFont::create("Label Scale", "bigFont.fnt");
+    maxWidthLabel->limitLabelWidth(76.f, 0.5f, 0.1f);
+    sidebarMenu->addChild(maxWidthLabel);
+
+    auto maxWidthInput = geode::TextInput::create(100.f, "320", "bigFont.fnt");
+    maxWidthInput->setFilter("0123456789.");
+    maxWidthInput->setScale(0.75f);
+    maxWidthInput->setCallback([this](std::string const& text) {
+        auto value = geode::utils::numFromString<double>(text);
+        if (!value) return;
+        double clamped = std::clamp(*value, 10.0, 100.0);
+        geode::Mod::get()->setSavedValue(fmt::format("max-width-{}", m_levelId), clamped);
+    });
+    maxWidthInput->setString(fmt::format("{:.2f}", geode::Mod::get()->getSavedValue<double>(fmt::format("max-width-{}", m_levelId), 20.0)));
+    sidebarMenu->addChild(maxWidthInput);
+
     sidebarMenu->setLayout(
         cocos2d::ColumnLayout::create()
             ->setAxisReverse(true)
+            ->setAutoScale(false)
+            ->setCrossAxisOverflow(true)
             ->setAutoGrowAxis(this->getContentHeight())
             ->setAxisAlignment(cocos2d::AxisAlignment::End)
             ->setGap(2)
@@ -114,15 +134,22 @@ cocos2d::CCMenu* LevelIndicatorsList::createIndicatorCell(IndicatorData& data, i
     cell->addChildAtPosition(toggleButton, cocos2d::Anchor::BottomLeft, {135.f, 20.f});
 
     // label input
-    auto labelInput = geode::TextInput::create(230.f, "Go!", "chatFont.fnt");
-    labelInput->setFilter("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{};:'\",.<>/?\\|`~");
+    auto labelInput = geode::TextInput::create(190.f, "Go!", "chatFont.fnt");
+    labelInput->setFilter("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{};:'\",.<>/?\\|`~ ");
     labelInput->setCallback([this, index](std::string const& text) {
         m_indicators[index].label = unescapeNewlines(text);
     });
     labelInput->setString(escapeNewlines(data.label));
     labelInput->setScale(0.6f);
     labelInput->setID("label-input"_spr);
-    cell->addChildAtPosition(labelInput, cocos2d::Anchor::BottomLeft, {215.f, 20.f});
+    cell->addChildAtPosition(labelInput, cocos2d::Anchor::BottomLeft, {205.f, 20.f});
+
+    // font picker
+    FontPicker* fontPickerBtn = FontPicker::create(m_indicators[index].font, [this, index](auto font) {
+        m_indicators[index].font = font;
+    });
+    fontPickerBtn->setID("font-picker-button"_spr);
+    cell->addChildAtPosition(fontPickerBtn, cocos2d::Anchor::BottomLeft, {275.f, 20.f});
 
     // color picker
     auto colorPickerBtn = ColorPicker::create(data.color, [this, index](auto color) {

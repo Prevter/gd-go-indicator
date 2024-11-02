@@ -7,8 +7,8 @@ protected:
     cocos2d::CCLabelBMFont* m_label{};
 
 public:
-    static IndicatorNode* create(IndicatorData const& data);
+    static IndicatorNode* create(IndicatorData const& data, float width);
 
 protected:
-    bool init(IndicatorData const& data);
+    bool init(IndicatorData const& data, float width);
 };

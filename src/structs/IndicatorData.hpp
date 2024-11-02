@@ -3,6 +3,7 @@
 struct IndicatorData {
     double percentage;
     std::string label;
+    std::string font;
     cocos2d::ccColor4B color;
     bool enabled = true;
 
@@ -27,12 +28,21 @@ struct IndicatorData {
     }
 };
 
+template <class T>
+T getOr(matjson::Value const& value, std::string_view key, T fallback) {
+    if (auto val = value.try_get(key)) {
+        return val.value().get().as<T>();
+    }
+    return fallback;
+}
+
 template<>
 struct matjson::Serialize<IndicatorData> {
     static IndicatorData from_json(Value const& value) {
         return IndicatorData {
             .percentage = value["percentage"].as_double(),
             .label = value["label"].as_string(),
+            .font = getOr<std::string>(value, "font", "bigFont.fnt"),
             .color = value["color"].as<cocos2d::ccColor4B>(),
             .enabled = value["enabled"].as_bool(),
         };
@@ -44,13 +54,7 @@ struct matjson::Serialize<IndicatorData> {
         obj["label"] = value.label;
         obj["color"] = value.color;
         obj["enabled"] = value.enabled;
+        obj["font"] = value.font;
         return obj;
-    }
-
-    static bool is_json(Value const& value) {
-        return value["percentage"].is_number() &&
-               value["label"].is_string() &&
-               value["color"].is<cocos2d::ccColor4B>() &&
-               value["enabled"].is_bool();
     }
 };

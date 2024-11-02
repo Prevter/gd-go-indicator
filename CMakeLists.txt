@@ -10,6 +10,7 @@ add_library(${PROJECT_NAME} SHARED
     src/main.cpp
     src/nodes/ColorPicker.cpp
     src/nodes/FloatSlider.cpp
+    src/nodes/FontPicker.cpp
     src/nodes/IndicatorNode.cpp
     src/layers/LevelIndicatorsList.cpp
 )

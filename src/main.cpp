@@ -5,8 +5,9 @@
 #include "nodes/IndicatorNode.hpp"
 #include "GoIndicatorPlayLayer.hpp"
 
-IndicatorNode* GoIndicatorPlayLayer::addIndicator(IndicatorData const &data) const {
-    auto indicator = IndicatorNode::create(data);
+IndicatorNode* GoIndicatorPlayLayer::addIndicator(IndicatorData const &data, float width) const {
+    auto indicator = IndicatorNode::create(data, width);
+    indicator->setID(fmt::format("indicator-{:.2f}"_spr, width));
     auto progress = static_cast<float>(m_progressBar->getContentSize().width * data.percentage / 100.0);
     m_progressBar->addChildAtPosition(indicator, cocos2d::Anchor::Left, { progress, 0 });
     return indicator;
@@ -29,9 +30,10 @@ void GoIndicatorPlayLayer::recreateIndicators() {
     if (!IndicatorData::hasIndicators(getLevelId())) return;
 
     auto indicators = IndicatorData::getIndicators(getLevelId());
+    auto width = geode::Mod::get()->getSavedValue<double>(fmt::format("max-width-{}", getLevelId()), 20.0);
     for (auto const& indicator : indicators) {
         if (!indicator.enabled) continue;
-        fields->m_indicators.push_back(this->addIndicator(indicator));
+        fields->m_indicators.push_back(this->addIndicator(indicator, width));
     }
 }
 
