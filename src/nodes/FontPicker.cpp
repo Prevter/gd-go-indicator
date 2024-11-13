@@ -79,7 +79,7 @@ bool FontPickerPopup::setup(std::string const &font, std::function<void(std::str
     m_fontLabel = cocos2d::CCLabelBMFont::create(" ", "bigFont.fnt");
     m_fontLabel->setAnchorPoint({ 0.5f, 0.5f });
     m_fontLabel->setID("font-label"_spr);
-    m_mainLayer->addChildAtPosition(m_fontLabel, cocos2d::Anchor::Center);
+    m_mainLayer->addChildAtPosition(m_fontLabel, geode::Anchor::Center);
     updateFont();
 
     auto sprNext = cocos2d::CCSprite::createWithSpriteFrameName("GJ_arrow_02_001.png");
@@ -89,14 +89,14 @@ bool FontPickerPopup::setup(std::string const &font, std::function<void(std::str
         sprNext, [this](auto s) { nextFont(s); }
     );
     m_nextFontButton->setID("next-font-button"_spr);
-    m_buttonMenu->addChildAtPosition(m_nextFontButton, cocos2d::Anchor::Right, { -30.f, 0 });
+    m_buttonMenu->addChildAtPosition(m_nextFontButton, geode::Anchor::Right, { -30.f, 0 });
 
 
     m_prevFontButton = geode::cocos::CCMenuItemExt::createSpriteExtraWithFrameName(
         "GJ_arrow_02_001.png", 0.6f, [this](auto s) { prevFont(s); }
     );
     m_prevFontButton->setID("prev-font-button"_spr);
-    m_buttonMenu->addChildAtPosition(m_prevFontButton, cocos2d::Anchor::Left, { 30.f, 0 });
+    m_buttonMenu->addChildAtPosition(m_prevFontButton, geode::Anchor::Left, { 30.f, 0 });
 
     auto okButton = geode::cocos::CCMenuItemExt::createSpriteExtra(
         ButtonSprite::create(
@@ -107,7 +107,7 @@ bool FontPickerPopup::setup(std::string const &font, std::function<void(std::str
         }
     );
     okButton->setID("ok-button"_spr);
-    m_buttonMenu->addChildAtPosition(okButton, cocos2d::Anchor::Bottom, { 0, 20 });
+    m_buttonMenu->addChildAtPosition(okButton, geode::Anchor::Bottom, { 0, 20 });
 
     return true;
 }

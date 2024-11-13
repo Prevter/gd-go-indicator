@@ -9,7 +9,7 @@ IndicatorNode* GoIndicatorPlayLayer::addIndicator(IndicatorData const &data, flo
     auto indicator = IndicatorNode::create(data, width);
     indicator->setID(fmt::format("indicator-{:.2f}"_spr, width));
     auto progress = static_cast<float>(m_progressBar->getContentSize().width * data.percentage / 100.0);
-    m_progressBar->addChildAtPosition(indicator, cocos2d::Anchor::Left, { progress, 0 });
+    m_progressBar->addChildAtPosition(indicator, geode::Anchor::Left, { progress, 0 });
     return indicator;
 }
 

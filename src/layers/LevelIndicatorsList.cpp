@@ -23,7 +23,7 @@ bool LevelIndicatorsList::setup(std::string const &id) {
     m_scrollLayer->setAnchorPoint({ 0, 0.5f });
     m_scrollLayer->setID("scroll-layer"_spr);
     m_scrollLayer->setZOrder(2);
-    m_mainLayer->addChildAtPosition(m_scrollLayer, cocos2d::Anchor::BottomLeft, {10.f, 10.f});
+    m_mainLayer->addChildAtPosition(m_scrollLayer, geode::Anchor::BottomLeft, {10.f, 10.f});
 
     auto scrollBg = cocos2d::extension::CCScale9Sprite::create("square02b_001.png");
     scrollBg->setAnchorPoint({ 0, 0 });
@@ -31,7 +31,7 @@ bool LevelIndicatorsList::setup(std::string const &id) {
     scrollBg->setOpacity(128);
     scrollBg->setContentSize({ 320.f, 215.f });
     scrollBg->setID("content-bg"_spr);
-    m_mainLayer->addChildAtPosition(scrollBg, cocos2d::Anchor::BottomLeft, {10.f, 10.f});
+    m_mainLayer->addChildAtPosition(scrollBg, geode::Anchor::BottomLeft, {10.f, 10.f});
 
     auto togglerMenu = cocos2d::CCMenu::create();
     togglerMenu->setContentSize(m_size);
@@ -43,11 +43,11 @@ bool LevelIndicatorsList::setup(std::string const &id) {
         IndicatorData::setIndicatorsEnabled(m_levelId, !enabled);
     });
     m_enableToggler->toggle(IndicatorData::hasIndicators(m_levelId));
-    togglerMenu->addChildAtPosition(m_enableToggler, cocos2d::Anchor::TopRight, {-75.f, -20.f});
+    togglerMenu->addChildAtPosition(m_enableToggler, geode::Anchor::TopRight, {-75.f, -20.f});
 
     auto enabledLabel = cocos2d::CCLabelBMFont::create("Enabled", "bigFont.fnt");
     enabledLabel->setScale(0.4f);
-    togglerMenu->addChildAtPosition(enabledLabel, cocos2d::Anchor::TopRight, {-35.f, -20.f});
+    togglerMenu->addChildAtPosition(enabledLabel, geode::Anchor::TopRight, {-35.f, -20.f});
     m_mainLayer->addChild(togglerMenu);
 
     auto sidebarMenu = cocos2d::CCMenu::create();
@@ -81,12 +81,12 @@ bool LevelIndicatorsList::setup(std::string const &id) {
     sidebarMenu->addChild(maxWidthInput);
 
     sidebarMenu->setLayout(
-        cocos2d::ColumnLayout::create()
+        geode::ColumnLayout::create()
             ->setAxisReverse(true)
             ->setAutoScale(false)
             ->setCrossAxisOverflow(true)
             ->setAutoGrowAxis(this->getContentHeight())
-            ->setAxisAlignment(cocos2d::AxisAlignment::End)
+            ->setAxisAlignment(geode::AxisAlignment::End)
             ->setGap(2)
     );
     m_mainLayer->addChild(sidebarMenu);
@@ -116,14 +116,14 @@ cocos2d::CCMenu* LevelIndicatorsList::createIndicatorCell(IndicatorData& data, i
         this->refreshList();
     });
     deleteButton->setID("delete-button"_spr);
-    cell->addChildAtPosition(deleteButton, cocos2d::Anchor::Left, {20.f, 0});
+    cell->addChildAtPosition(deleteButton, geode::Anchor::Left, {20.f, 0});
 
     // percentage slider
     auto percentageSlider = FloatSlider::create(0.0, 100.0, data.percentage, [this, index](auto value) {
         m_indicators[index].percentage = value;
     });
     percentageSlider->setID("percentage-slider"_spr);
-    cell->addChildAtPosition(percentageSlider, cocos2d::Anchor::BottomLeft, {35.f, 10.f});
+    cell->addChildAtPosition(percentageSlider, geodr::Anchor::BottomLeft, {35.f, 10.f});
 
     // toggle button
     auto toggleButton = geode::cocos::CCMenuItemExt::createTogglerWithStandardSprites(0.5f, [this, index](auto) {
@@ -131,7 +131,7 @@ cocos2d::CCMenu* LevelIndicatorsList::createIndicatorCell(IndicatorData& data, i
     });
     toggleButton->toggle(data.enabled);
     toggleButton->setID("toggle-button"_spr);
-    cell->addChildAtPosition(toggleButton, cocos2d::Anchor::BottomLeft, {135.f, 20.f});
+    cell->addChildAtPosition(toggleButton, geode::Anchor::BottomLeft, {135.f, 20.f});
 
     // label input
     auto labelInput = geode::TextInput::create(190.f, "Go!", "chatFont.fnt");
@@ -142,21 +142,21 @@ cocos2d::CCMenu* LevelIndicatorsList::createIndicatorCell(IndicatorData& data, i
     labelInput->setString(escapeNewlines(data.label));
     labelInput->setScale(0.6f);
     labelInput->setID("label-input"_spr);
-    cell->addChildAtPosition(labelInput, cocos2d::Anchor::BottomLeft, {205.f, 20.f});
+    cell->addChildAtPosition(labelInput, geode::Anchor::BottomLeft, {205.f, 20.f});
 
     // font picker
     FontPicker* fontPickerBtn = FontPicker::create(m_indicators[index].font, [this, index](auto font) {
         m_indicators[index].font = font;
     });
     fontPickerBtn->setID("font-picker-button"_spr);
-    cell->addChildAtPosition(fontPickerBtn, cocos2d::Anchor::BottomLeft, {275.f, 20.f});
+    cell->addChildAtPosition(fontPickerBtn, geode::Anchor::BottomLeft, {275.f, 20.f});
 
     // color picker
     auto colorPickerBtn = ColorPicker::create(data.color, [this, index](auto color) {
         m_indicators[index].color = color;
     });
     colorPickerBtn->setID("color-picker-button"_spr);
-    cell->addChildAtPosition(colorPickerBtn, cocos2d::Anchor::BottomLeft, {295.f, 20.f});
+    cell->addChildAtPosition(colorPickerBtn, geode::Anchor::BottomLeft, {295.f, 20.f});
 
     return cell;
 }
@@ -172,10 +172,10 @@ void LevelIndicatorsList::refreshList() {
 
     auto height = std::max(42.f * static_cast<float>(m_indicators.size()), 215.f);
     layer->setLayout(
-        cocos2d::ColumnLayout::create()
+        geode::ColumnLayout::create()
             ->setAxisReverse(true)
             ->setAutoGrowAxis(height)
-            ->setAxisAlignment(cocos2d::AxisAlignment::End)
+            ->setAxisAlignment(geode::AxisAlignment::End)
             ->setGap(2)
     );
 
