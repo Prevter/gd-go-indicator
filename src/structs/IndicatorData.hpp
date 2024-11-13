@@ -30,26 +30,27 @@ struct IndicatorData {
 
 template <class T>
 T getOr(matjson::Value const& value, std::string_view key, T fallback) {
-    if (auto val = value.try_get(key)) {
-        return val.value().get().as<T>();
+    if (auto val = value.get(key)) {
+        auto v = val.unwrap().as<T>();
+        return v.unwrapOr(fallback);
     }
     return fallback;
 }
 
 template<>
 struct matjson::Serialize<IndicatorData> {
-    static IndicatorData from_json(Value const& value) {
-        return IndicatorData {
-            .percentage = value["percentage"].as_double(),
-            .label = value["label"].as_string(),
+    static geode::Result<IndicatorData> fromJson(Value const& value) {
+        return geode::Ok(IndicatorData {
+            .percentage = getOr<double>(value, "percentage", 50.0),
+            .label = getOr<std::string>(value, "label", "Go!"),
             .font = getOr<std::string>(value, "font", "bigFont.fnt"),
-            .color = value["color"].as<cocos2d::ccColor4B>(),
-            .enabled = value["enabled"].as_bool(),
-        };
+            .color = getOr<cocos2d::ccColor4B>(value, "color", { 255, 255, 255, 255 }),
+            .enabled = getOr<bool>(value, "enabled", true),
+        });
     }
 
-    static Value to_json(IndicatorData const& value) {
-        auto obj = Object();
+    static Value toJson(IndicatorData const& value) {
+        auto obj = Value();
         obj["percentage"] = value.percentage;
         obj["label"] = value.label;
         obj["color"] = value.color;

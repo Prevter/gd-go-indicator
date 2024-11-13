@@ -123,7 +123,7 @@ cocos2d::CCMenu* LevelIndicatorsList::createIndicatorCell(IndicatorData& data, i
         m_indicators[index].percentage = value;
     });
     percentageSlider->setID("percentage-slider"_spr);
-    cell->addChildAtPosition(percentageSlider, geodr::Anchor::BottomLeft, {35.f, 10.f});
+    cell->addChildAtPosition(percentageSlider, geode::Anchor::BottomLeft, {35.f, 10.f});
 
     // toggle button
     auto toggleButton = geode::cocos::CCMenuItemExt::createTogglerWithStandardSprites(0.5f, [this, index](auto) {

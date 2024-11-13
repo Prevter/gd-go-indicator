@@ -1,3 +1,6 @@
+# 1.1.1-beta.1
+- Ported to Geometry Dash 2.2074
+
 # 1.1.0
 - Added labels scale option
 - Added label font setting
