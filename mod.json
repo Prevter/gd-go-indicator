@@ -21,7 +21,7 @@
 	},
 	"dependencies": [{
 		"id": "cvolton.level-id-api",
-		"version": "v1.1.0-alpha.1",
+		"version": "v1.1.0-alpha.2",
 		"importance": "required"
 	},{
 		"id": "geode.node-ids",
