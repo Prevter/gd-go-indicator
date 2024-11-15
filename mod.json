@@ -8,7 +8,7 @@
 	},
 	"id": "prevter.go-indicator",
 	"name": "Go! Indicator",
-	"version": "v1.1.1-beta.1",
+	"version": "v1.1.1",
 	"developer": "prevter",
 	"description": "Add custom markers to your progress bar",
 	"tags": ["interface", "customization"],
@@ -21,11 +21,11 @@
 	},
 	"dependencies": [{
 		"id": "cvolton.level-id-api",
-		"version": "v1.1.0-alpha.2",
+		"version": "v1.1.0",
 		"importance": "required"
 	},{
 		"id": "geode.node-ids",
-		"version": ">=1.17.0-alpha.1",
+		"version": ">=1.17.0",
 		"importance": "required"
 	}]
 }

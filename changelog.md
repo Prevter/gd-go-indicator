@@ -1,3 +1,6 @@
+# 1.1.1
+- Bump Geode version to 4.0.0-beta.1
+
 # 1.1.1-beta.1
 - Ported to Geometry Dash 2.2074
 
