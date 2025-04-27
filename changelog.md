@@ -1,3 +1,6 @@
+# 1.2.0
+- Added iOS support
+
 # 1.1.1
 - Bump Geode version to 4.0.0-beta.1
 

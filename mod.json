@@ -8,7 +8,7 @@
 	},
 	"id": "prevter.go-indicator",
 	"name": "Go! Indicator",
-	"version": "v1.1.1",
+	"version": "v1.2.0",
 	"developer": "prevter",
 	"description": "Add custom markers to your progress bar",
 	"tags": ["interface", "customization"],
